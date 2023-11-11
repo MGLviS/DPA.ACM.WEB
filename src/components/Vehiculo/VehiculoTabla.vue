@@ -1,10 +1,14 @@
 
 <template>
   <div>
+    <VehiculoEditar ref="VehiculoEditar"/>
+    
     <q-table
       :rows="datosFiltrados"
       :columns="columns"
       row-key="vehiculoId"
+      :rows-per-page-options="[10,50,100]"
+      
     >
 
       
@@ -47,8 +51,16 @@
 import { ref } from 'vue'
 import { useQuasar } from 'quasar'
 import axios from 'axios'
+import VehiculoEditar from 'src/components/Vehiculo/VehiculoEdit.vue'
+
 
 export default{
+
+  name: "VehiculoTabla",
+
+  components: {
+    VehiculoEditar,
+  },
   
   data(){
     return{
@@ -75,6 +87,8 @@ export default{
           String(this.celda(dato, columna)).toLowerCase().includes(this.busqueda.toLowerCase())
         )
       );
+      
+      
     },
   },
 
@@ -105,8 +119,8 @@ export default{
     },
 
     editarFila(fila) {
-  
-      console.log('Editar:', fila);
+      this.$refs.VehiculoEditar.abrirModalEdicion(fila);
+      //console.log('Editar:', fila);
     },
 
     // Función para eliminar una fila
@@ -132,6 +146,10 @@ export default{
       })
     },
   },
+
+  actualizar(){
+    this.getDatos()
+  }
 
 
 

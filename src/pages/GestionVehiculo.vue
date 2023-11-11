@@ -1,8 +1,8 @@
 <template>
     <div class="vehiculo-page">
         <div class="titulo"><h5>GESTIÓN VEHÍCULO</h5></div>
-
-        <div class="agregar">Agregar</div>
+        <VehiculoAdd ref="VehiculoAdd" />
+        <div class="agregar"><q-btn @click="agregarv" color="blue" icon="add" label="Añadir Vehiculo" /></div>
         <br/>
         <div class="tabla"><VehiculoTabla /></div>
     </div>  
@@ -35,11 +35,19 @@
 <script>
 
 import VehiculoTabla from 'src/components/Vehiculo/VehiculoTabla.vue';
+import VehiculoAdd from 'src/components/Vehiculo/VehiculoAdd.vue'
 
 export default {
     name: "GestionVehiculo",
     components: {
-        VehiculoTabla
+        VehiculoTabla,
+        VehiculoAdd
+    },
+
+    methods: {
+        agregarv(){
+            this.$refs.VehiculoAdd.abrirModalnuevoV();
+        }
     }
 }
 
